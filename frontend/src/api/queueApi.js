@@ -4,6 +4,7 @@ import refreshAuthLogic from "./refreshAuthLogic"
 
 const create = id => {
   const accessToken = localStorage.getItem("JWT_ACCESS")
+  let queueIndex = id
 
   const api = apisauce.create({
     baseURL: "/api",
@@ -12,11 +13,16 @@ const create = id => {
 
   createAuthRefreshInterceptor(api.axiosInstance, refreshAuthLogic(api))
 
-  const url = "/programs/" + id + "/queue/"
+  //Debugging ???
+  queueIndex = 2
+  const url = "/programs/" + queueIndex + "/queue/"
 
   //Trap url as a closure in the definition of getQueue
   const getQueue = async () => {
+    //console.log("Made api call")
+    //console.log(url)
     const response = await api.get(url)
+    //console.log(response)
     return response
   }
   return {
