@@ -12,8 +12,10 @@ const create = id => {
 
   createAuthRefreshInterceptor(api.axiosInstance, refreshAuthLogic(api))
 
+  const url = "/programs/" + id + "/queue/"
+
+  //Trap url as a closure in the definition of getQueue
   const getQueue = async () => {
-    const url = "/programs/" + id + "/queue/"
     const response = await api.get(url)
     return response
   }
